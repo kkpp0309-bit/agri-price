@@ -1,0 +1,35 @@
+name: อัพเดทราคาสินค้าเกษตร
+
+on:
+  schedule:
+    - cron: '0 1 * * *'
+  workflow_dispatch:
+
+jobs:
+  update-prices:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Fetch prices and update HTML
+        run: python update_prices.py
+
+      - name: Commit and push changes
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add index.html prices.json
+          git diff --staged --quiet || git commit -m "🌾 อัพเดทราคาสินค้าเกษตร $(date '+%Y-%m-%d')"
+          git push
