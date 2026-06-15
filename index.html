@@ -412,13 +412,13 @@
       <span class="icon">🐷</span>
       <div>
         <div class="label">สุกรมีชีวิต (บาท/กก.)</div>
-        <div class="value">72.00 &▼</div>
+        <div class="value">72.00 ▼</div>
       </div>
     </div>
     <div class="sum-card">
       <span class="icon">🦐</span>
       <div>
-        <div class="label">กุ้งขนาด  70 (บาท/กก.)</div>
+        <div class="label">กุ้งขาว ขนาด 70 (บาท/กก.)</div>
         <div class="value">140.00</div>
       </div>
     </div>
@@ -432,7 +432,7 @@
     <div class="section-head">
       <h2>📋 ราคาสินค้าเกษตรประจำวัน</h2>
       <div class="line"></div>
-      <span style="font-size:0.82rem;color:#888;">อัปเดต: 13 มิ.ย. 2569</span>
+      <span id="today-date" style="font-size:0.82rem;color:#888;"></span>
     </div>
     <div class="filter-bar">
       <button class="filter-btn active" onclick="filterTable('all', this)">ทั้งหมด</button>
@@ -479,7 +479,7 @@
             <td>กรมการค้าภายใน</td>
           </tr>
           <tr data-cat="crop">
-            <td>🎋 ��้อย</td>
+            <td>🎋 อ้อย</td>
             <td><span class="cat-badge cat-crop">พืชไร่</span></td>
             <td><strong>1,350</strong></td>
             <td>บาท/ตัน</td>
@@ -836,6 +836,16 @@
     });
   }
 
+  // ===== TODAY DATE =====
+  (function() {
+    const thMonths = ['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
+    const now = new Date();
+    const d = now.getDate();
+    const m = thMonths[now.getMonth()];
+    const y = now.getFullYear() + 543;
+    document.getElementById('today-date').textContent = `อัปเดต: ${d} ${m} ${y}`;
+  })();
+
   // ===== CHART CONFIG =====
   const months = ['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.'];
 
@@ -884,16 +894,4 @@
   makeChart('chartRice',   'ข้าวเปลือก (บาท/ตัน)', [9200, 9400, 9650, 9750, 9800, 9850], '#66bb6a');
   makeChart('chartRubber', 'ยางพารา (บาท/กก.)',     [58, 61, 63, 65, 67, 68.5],           '#ef5350');
   makeChart('chartPig',    'สุกร (บาท/กก.)',    [78, 76, 75, 74, 74, 72],           '#ffa726');
-  makeChart('chartShrimp', 'กุ้งขาว (บาท/กก.)', [135, 138, 140, 142, 141, 140], '#42a5f5');
-
-  // ===== SMOOTH SCROLL =====
-  document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', e => {
-      e.preventDefault();
-      const el = document.querySelector(a.getAttribute('href'));
-      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-  });
-</script>
-</body>
-</html>
+  makeChart('chartShrimp
